@@ -1,0 +1,38 @@
+detruireConnexite ( brute force ) :
+
+Entrée <- M : matrice carrée d'adjacence du graphe
+Sortie 	<- S : liste des noeuds à retirer
+
+  copieLocale <- M
+  T <- 0
+
+  Tant que copieLocale != matriceNulle faire :
+    tailleCourante <- taille(copieLocale)
+    indiceMax <- 0
+    // Pour chaque colonne
+    pour i allant de 0 à tailleCourante faire :
+      connexite <- 0
+      pour j allant de 0 à tailleCourante faire :			
+        connexite <- connexite + M(i,j)		
+      Si connexite > 0 alors :
+        tailleCourante <- tailleCourante - 1
+        copieLocale <- retirerColonneLigne(copieLocale,i)
+        ajouter(S,i)
+
+
+Algo brute force :
+Entrée <- M : matrice carrée d'adjacence du graphe
+Sortie 	<- S : liste optimale des noeuds à retirer
+
+Début :
+  
+  nbMaxSolution <- factorielle(taille(M))
+  S <- detruireConnexite(M)
+  
+  Pour i parcourant 1, tailleCopieLocale :
+    copieLocale <- intervertirLigneColonne(M, i)
+    solution <- detruireConnexite(copieLocale)
+	  si taille(solution) < taille(S) :
+		  S <- solution
+      
+      
