@@ -1,0 +1,23 @@
+Algorithme 1:
+
+Entrée : G = <V, E> :: Graphe
+Sortie : G' = <V', E'> :: Graphe totalement deconnexe
+
+Début
+connexion_max <- 1								#Pour rentrer dans la boucle
+Tant que connexion_max > 0 faire
+	connexion_sommet <- 0
+	connexion_max <- -1
+	sommet_con_max <- NULL
+	Pour v dans V faire
+		connexion_sommet <- compteConnexion(v)
+		Si connexion_sommet > connexion_max
+			connexion_max <- connexion_sommet
+			sommet_con_max <- v
+		Fin si
+	Fin pour
+	Si connexion_max > 0:
+		Retire_sommet(G, v)
+	Fin si
+Fin tant que
+Fin
