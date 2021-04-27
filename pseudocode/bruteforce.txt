@@ -1,3 +1,31 @@
+
+
+
+
+int algo_force_brute ( brute force ) :
+
+Entrée <- M : matrice carrée d'adjacence du graphe
+Sortie 	<- S : liste des noeuds à retirer
+  
+  copiesLocales[i] <- M
+
+  si taille(M) > 1 alors :
+  | pour i allant de 0 à taille(M) faire :
+  | | copiesLocales[i] <- M
+  | | supprimeSommet(copiesLocales[i],i)
+  | fin pour
+  | pour i allant de 0 à taille(M) faire :
+  | | pour j allant de 0 à taille(M)-1 faire :
+  | | | nbConnexion <- compteConnexion(copiesLocales[i])
+  | | | si nbConnexion != 0 alors :
+  | | | | S <- concaténer(i,algo_force_brute(copiesLocales[i]))
+  | | | sinon :
+  | | | | S <- i
+  | | | fin si
+  | | fin pour
+  | fin pour 
+  fin si
+
 detruireConnexite ( brute force ) :
 
 Entrée <- M : matrice carrée d'adjacence du graphe
