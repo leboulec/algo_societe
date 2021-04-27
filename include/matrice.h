@@ -40,7 +40,7 @@ void print_matrice(matrice_t *mat);
  * int *list_inc[2]	<-- liste d'incidence
  * size_t n_list	<-- taille de la liste d'incidence
  * n_vertex		<-- nombre de sommets
- */
 matrice_inc_t *build_matrice_inc(int *liste_inc[2], size_t n_list, size_t n_vertex);
+ */
 
 #endif

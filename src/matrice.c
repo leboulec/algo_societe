@@ -57,6 +57,7 @@ void print_matrice(matrice_t *mat)
 	}
 }
 
+/* Inutile
 matrice_inc_t *build_matrice_inc(int *liste_inc[2], size_t n_list, size_t n_vertex)
 {
 	int i;
@@ -67,3 +68,4 @@ matrice_inc_t *build_matrice_inc(int *liste_inc[2], size_t n_list, size_t n_vert
 		mat->contenu[i][liste_inc[i][0]];
 	}
 }
+*/
