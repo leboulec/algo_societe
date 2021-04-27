@@ -1,6 +1,8 @@
 #ifndef __MATRICE_H__
 #define __MATRICE_H__
 
+#include <stdio.h>
+
 /* Type matrice
  * taille_m : nombre de colonne
  * taille_n : nombre de ligne
