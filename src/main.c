@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "algo.h"
 #include "matrice.h"
 
@@ -14,9 +15,19 @@ int main()
 	mat->contenu[1][0] = 0;
 	print_matrice(mat);
 	printf("*****************\n");
-	matrice_adj_t *mat2 = algo_bon_sens(mat);
-	print_matrice(mat2);
+	size_t *liste = algo_bon_sens(mat);
+	if (liste == NULL) {
+		delete_matrice(mat);
+		return -1;
+	}
+	size_t *sommet = liste;
+	printf("Sommets à retirer : ");
+	while (*sommet != -1) {
+		printf("%zd ", *sommet);
+		sommet++;
+	}
+	printf("\n");
 	delete_matrice(mat);
-	delete_matrice(mat2);
+	free(liste);
 	return 0;
 }

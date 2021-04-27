@@ -2,8 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-matrice_adj_t *algo_bon_sens(matrice_adj_t *mat_in)
+size_t *algo_bon_sens(const matrice_adj_t *mat_in)
 {
+	size_t *liste_sommet = (size_t *)calloc(mat_in->taille_m, sizeof(size_t));
+	if (liste_sommet == NULL) {
+		printf("Impossible de créer la liste des sommets... Problème de mémoire ?");
+		return NULL;
+	}
+	size_t ind_liste = 0;
 	int connexion_sommet;
 	int connexion_max = -1;
 	size_t ind_sommet_con_max = -1;
@@ -27,13 +33,23 @@ matrice_adj_t *algo_bon_sens(matrice_adj_t *mat_in)
 				ind_sommet_con_max = i;
 			}
 		}
-		if (connexion_max > 0)
+		if (connexion_max > 0) {
 			retire_sommet(mat, ind_sommet_con_max);
+			liste_sommet[ind_liste] = ind_sommet_con_max;
+			ind_liste++;
+		}
 	} while (connexion_max > 0);
-	return mat;
+	delete_matrice(mat);
+
+	size_t *liste_sommet_courte = realloc(liste_sommet, sizeof(size_t) * (ind_liste + 1));
+	if (liste_sommet_courte == NULL)
+		return liste_sommet;
+	liste_sommet = liste_sommet_courte;
+	liste_sommet[ind_liste] = -1;
+	return liste_sommet;
 }
 
-int nbre_connexions(int *connexion, size_t nbre_sommets)
+int nbre_connexions(const int *connexion, size_t nbre_sommets)
 {
 	int n = 0;
 	for (int i = 0; i < nbre_sommets; i++)
