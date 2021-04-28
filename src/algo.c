@@ -32,11 +32,11 @@ size_t *algo_bon_sens(matrice_adj_t *mat)
 		}
 	} while (connexion_max > 0);
 
+	liste_sommet[ind_liste] = -1;
 	size_t *liste_sommet_courte = realloc(liste_sommet, sizeof(size_t) * (ind_liste + 1));
 	if (liste_sommet_courte == NULL)
 		return liste_sommet;
 	liste_sommet = liste_sommet_courte;
-	liste_sommet[ind_liste] = -1;
 	return liste_sommet;
 }
 
