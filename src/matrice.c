@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "matrice.h"
 
 matrice_t *build_matrice(size_t m, size_t n)
@@ -34,6 +35,25 @@ matrice_t *build_matrice(size_t m, size_t n)
 	mat->taille_m = m;
 	mat->taille_n = n;
 	mat->contenu = contenu;
+	return mat;
+}
+
+matrice_adj_t *build_random_matrice_adj(size_t n)
+{
+	static int srand_called = 0;
+	matrice_adj_t *mat = (matrice_adj_t *)build_matrice(n, n);
+	if (!srand_called) {
+		srand(time(NULL));
+		srand_called = 1;
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = i + 1; j < n; j++) {
+			/* We suppose RAND_MAX is big enough for the distribution to be
+			uniform */
+			mat->contenu[i][j] = rand() % 2;
+			mat->contenu[j][i] = mat->contenu[i][j];
+		}
+	}
 	return mat;
 }
 

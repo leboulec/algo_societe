@@ -22,9 +22,15 @@ typedef matrice_t matrice_adj_t;
 /* Build a matrice
  * int m	 <-- nombre de colonnes
  * int n	 <-- nombre de lignes
- * matrice_t mat --> matrice construite
+ * Retourne la matrice construite
  */
 matrice_t *build_matrice(size_t m, size_t n);
+
+/* Build a random matrice d'adjacence symetrique
+ * int n	--> taille de la matrice carre
+ * Retourne la matrice construite
+ */
+matrice_adj_t *build_random_matrice_adj(size_t n);
 
 /*
  * Delete the matrice mat

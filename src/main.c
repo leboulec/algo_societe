@@ -4,6 +4,8 @@
 
 int main()
 {
+	/* TEST 1*/
+	printf("===TEST 1===\n");
 	matrice_adj_t *mat = build_matrice(3, 3);
 	if (mat == NULL)
 		return -1;
@@ -22,6 +24,28 @@ int main()
 	}
 	size_t *sommet = liste;
 	printf("Sommets à retirer : ");
+	while (*sommet != -1) {
+		printf("%zd ", *sommet);
+		sommet++;
+	}
+	printf("\n");
+	delete_matrice(mat);
+	free(liste);
+	
+	/* TEST 2*/
+	printf("\n===TEST 2===\n");
+	mat = build_random_matrice_adj(10);
+	if (mat == NULL)
+		return -1;
+	print_matrice(mat);
+	liste = algo_bon_sens(mat);
+	if (liste == NULL) {
+		delete_matrice(mat);
+		return -1;
+	}
+	printf("*****************\n");
+	printf("Sommets à retirer : ");
+	sommet = liste;
 	while (*sommet != -1) {
 		printf("%zd ", *sommet);
 		sommet++;
