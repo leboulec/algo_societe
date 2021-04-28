@@ -40,51 +40,70 @@ size_t *algo_bon_sens(matrice_adj_t *mat)
 	return liste_sommet;
 }
 
-// Tableau de sommet 
-int* algo_force_brute(matrice_adj_t *mat_in)
-{
-	int* noeud = NULL, liste = NULL;
-	int connexion_sommet = -1 ;
-
-	matrice_adj_t **mats = malloc((*mat)*mat_in->taille_m); 
-
-	if(mat_in->taille_m > 1){
-		for(size_t i = 0 ; i < mat_in->taille_m ; i++){			
+matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){
+	matrice_adj_t ** mats = (matrice_adj_t **) malloc(mat_in->taille_m*sizeof(matrice_adj_t)); 
+	if(mats == NULL)
+		return NULL;
+	for(size_t i = 0 ; i < mat_in->taille_m ; i++){		
 			mats[i] = build_matrice(mat_in->taille_m, mat_in->taille_n);
-			memcpy(mats[i]->contenu[i], mat_in->contenu[i], sizeof(int) * (mat_in->taille_m));	
+			for (int j = 0; j < mat_in->taille_m; j++)
+				memcpy(mats[i]->contenu[j], mat_in->contenu[j], sizeof(int) * (mat_in->taille_m));	
 			retire_sommet(mats[i],i);
 		}
+	return mats;
+}
+// Tableau de sommet 
+listeSommet* algo_force_brute(matrice_adj_t *mat_in)
+{
+	listeSommet* list = NULL,*tmpList = NULL,** solutions = NULL;
+	matrice_adj_t **mats = NULL;
+	int nbConnexion = 0;
 
-		for(size_t i = 0 ; i < mat_in->taille_m-1 ; i++){
-			for(size_t j = 0 ; j < mat_in->taille_m-1 ; j++){
-				connexion_sommet = 	nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m);	
-				if(connexion_sommet == 0){
-					noeud = malloc(sizeof(int));
-					if (noeud == NULL) {
-						printf("Impossible de créer un noeud... Problème de mémoire ?");
-						return NULL;
-					}
-					*noeud = i;
-					//TOUT FREE
-					for(size_t i = 0 ; i < mat_in->taille_m-1 ; i++){
-						delete_matrice(mats[i]);
-						free(mats);
-					}
-					return noeud;
-				}
-				else{
-					// append liste précédente avec liste courante
-					liste = (int**) malloc(sizeof(int*)*2);
-					*(*liste) = i;
-					*(*(liste+1)) = algo_force_brute(mats[i],mats[i]->taile_m-1);
-					return liste;
-				}
+	if(mat_in->taille_m > 1){
+		
+		mats = getSubMatrix(mat_in);
+		if(mats == NULL)
+			return NULL;
+		
+		solutions = malloc(sizeof(listeSommet*)*mat_in->taille_m);
+		if(solutions == NULL)
+			return NULL;
+			
+		// Pour chaque sous matrice
+		for(size_t i = 0 ; i < mat_in->taille_m ; i++){
+
+			nbConnexion = 0;
+			for(size_t j = 0 ; j < mats[i]->taille_m ; j++)
+				nbConnexion += nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m);
+
+			list = createList(i);
+			
+			if(nbConnexion){
+				tmpList = algo_force_brute(mats[i]);
+				delete_matrice(mats[i]);
+				catList(list,tmpList);
+				solutions[i] = list;
+			}else{
+				for(size_t k = 0 ; k < i ; k++)
+					deleteList(solutions[k]);
+				for(size_t k = 0 ; k < mat_in->taille_m ; k++)
+					delete_matrice(mats[k]);
+				free(solutions);
+				free(mats);
+				return list;
 			}
 		}
+		list = solutions[0];
+
+		for(size_t i = 1 ; i < mat_in->taille_m ; i++){
+			if(solutions[i]->taille<list->taille)
+				list = solutions[i];		
+			deleteList(solutions[i]);
+		}
+		free(solutions);
+		free(mats);
 	}
-	else{ 
-		return NULL;
-	}
+	return list;
 }
 
 
