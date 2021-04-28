@@ -5,11 +5,12 @@
 
 /* Construit une matrice totalement deconnexe a partir d'une matrice d'adjacence
  * mat_in <-- Matrice d'adjacence representant les interdependances des groupes
- *            de societes.
+ *            de societes. A la fin de l'algorithme, la matrice ne contient que
+ *            des 0.
  * Renvoie une liste des noeuds a enlever pour obtenir une matrice totalement
  * deconnexe
  */
-size_t *algo_bon_sens(const matrice_adj_t *mat_in);
+size_t *algo_bon_sens(matrice_adj_t *mat_in);
 
 /* Calcul le nombre de sommets connectes au sommet courant
  * connexion <-- colonne de la matrice d'adjacence
