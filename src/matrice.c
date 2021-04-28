@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "matrice.h"
+#include "../include/matrice.h"
 
 matrice_t *build_matrice(size_t m, size_t n)
 {
