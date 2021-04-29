@@ -1,66 +1,52 @@
-
-
-
-
-int algo_force_brute ( brute force ) :
-
-Entrée <- M : matrice carrée d'adjacence du graphe
-Sortie 	<- S : liste des noeuds à retirer
-  
-  copiesLocales[i] <- M
-
-  si taille(M) > 1 alors :
-  | pour i allant de 0 à taille(M) faire :
-  | | copiesLocales[i] <- M
-  | | supprimeSommet(copiesLocales[i],i)
-  | fin pour
-  | pour i allant de 0 à taille(M) faire :
-  | | pour j allant de 0 à taille(M)-1 faire :
-  | | | nbConnexion <- compteConnexion(copiesLocales[i])
-  | | | si nbConnexion != 0 alors :
-  | | | | S <- concaténer(i,algo_force_brute(copiesLocales[i]))
-  | | | sinon :
-  | | | | S <- i
-  | | | fin si
-  | | fin pour
-  | fin pour 
-  fin si
-
-detruireConnexite ( brute force ) :
-
+forceBrute : 
 Entrée <- M : matrice carrée d'adjacence du graphe
 Sortie 	<- S : liste des noeuds à retirer
 
-  copieLocale <- M
-  T <- 0
+début
+|
+|  listeCourante <- NULL 
+|
+|  si taille(M) > 2 alors :
+|  | 
+|  | pour i de 0 à taille(M)-1 : 
+|  | |
+|  | | resultats <- enleverSommet(M,i)
+|  | |
+|  | fin pour
+|  | 
+|  | pour i de 0 à taille(M)-1 faire:
+|  | |
+|  | | listeCourante <- creerListe(i)
+|  | | 
+|  | | si nbConnexion(resultats[i]) != 0 alors :
+|  | | |
+|  | | | listeSolution <- forceBrute(resultats[i])
+|  | | |
+|  | | | solutions[i] <- concaténer(listeCourante,listeSolution)
+|  | | | 
+|  | | sinon :
+|  | | |
+|  | | |  retourner: listeCourante
+|  | | |
+|  | | finsi
+|  | | 
+|  | finpour
+|  | 
+|  | listeCourante <- solution[0]
+|  |
+|  | pour i allant de 0 à taille(M) faire :
+|  | | 
+|  | | si taille(solution[i]) < taille(listeCourante) alors :
+|  | | |
+|  | | | listeCourante <- solution[i]
+|  | | |
+|  | | finsi
+|  | | 
+|  | fin pour
+|  |
+|  fin si
+|
+| retourner: listeCourante
+|
+fin
 
-  Tant que copieLocale != matriceNulle faire :
-    tailleCourante <- taille(copieLocale)
-    indiceMax <- 0
-    // Pour chaque colonne
-    pour i allant de 0 à tailleCourante faire :
-      connexite <- 0
-      pour j allant de 0 à tailleCourante faire :			
-        connexite <- connexite + M(i,j)		
-      Si connexite > 0 alors :
-        tailleCourante <- tailleCourante - 1
-        copieLocale <- retirerColonneLigne(copieLocale,i)
-        ajouter(S,i)
-
-
-Algo brute force :
-Entrée <- M : matrice carrée d'adjacence du graphe
-Sortie 	<- S : liste optimale des noeuds à retirer
-
-Début :
-  
-  nbMaxSolution <- factorielle(taille(M))
-  S <- detruireConnexite(M)
-  
-  Pour i parcourant 1, tailleCopieLocale :
-    copieLocale <- intervertirLigneColonne(M, i)
-    solution <- detruireConnexite(copieLocale)
-	  si taille(solution) < taille(S) :
-		  S <- solution
-      
-      
