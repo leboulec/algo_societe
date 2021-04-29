@@ -2,15 +2,18 @@ forceBrute :
 Entrée <- M : matrice carrée d'adjacence du graphe
 Sortie 	<- S : liste des noeuds à retirer
 
+3n
+
+
 début
-|
+| 
 |  listeCourante <- NULL 
 |
 |  si taille(M) > 2 alors :
 |  | 
 |  | pour i de 0 à taille(M)-1 : 
 |  | |
-|  | | resultats <- enleverSommet(M,i)
+|  | | resultats[i] <- enleverSommet(M,i)
 |  | |
 |  | fin pour
 |  | 
@@ -34,9 +37,10 @@ début
 |  | 
 |  | listeCourante <- solution[0]
 |  |
-|  | pour i allant de 0 à taille(M) faire :
+|  | pour i allant de 1 à taille(M) faire :
 |  | | 
-|  | | si taille(solution[i]) < taille(listeCourante) alors :
+|  | | si solution[i] != NULL et 
+|  | |    taille(solution[i]) < taille(listeCourante) alors :
 |  | | |
 |  | | | listeCourante <- solution[i]
 |  | | |
