@@ -56,8 +56,10 @@ matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){
 listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 {
 	listeSommet* list = NULL,*tmpList = NULL,** solutions = NULL;
+	
 	matrice_adj_t **mats = NULL;
-	int nbConnexion = 0;
+
+	size_t nbConnexion = 0;
 
 	if(mat_in->taille_m > 1){
 		
@@ -70,12 +72,12 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 			return NULL;
 			
 		// Pour chaque sous matrice
-		for(size_t i = 0 ; i < mat_in->taille_m ; i++){
+		for(size_t i = 0 ; i < mat_in->taille_n; i++){
 
 			nbConnexion = 0;
 			for(size_t j = 0 ; j < mats[i]->taille_m ; j++)
-				nbConnexion += nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m);
-
+				nbConnexion += (size_t) nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m);
+		
 			list = createList(i);
 			
 			if(nbConnexion){
@@ -96,7 +98,8 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 		list = solutions[0];
 
 		for(size_t i = 1 ; i < mat_in->taille_m ; i++){
-			if(solutions[i]->taille<list->taille)
+			if(solutions[i]->taille<list->taille 
+				&& (*solutions[i]->contenu) != -1)
 				list = solutions[i];		
 			deleteList(solutions[i]);
 		}
@@ -105,7 +108,6 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 	}
 	return list;
 }
-
 
 int nbre_connexions(const int *connexion, size_t nbre_sommets)
 {
@@ -122,4 +124,20 @@ void retire_sommet(matrice_adj_t *mat, size_t ind_sommet)
 		mat->contenu[ind_sommet][i] = 0;
 		mat->contenu[i][ind_sommet] = 0;
 	}
+}
+
+void detruit_sommet(matrice_adj_t *mat, size_t ind_sommet)
+{
+	int i;
+	for (i = 0; i < mat->taille_n; i++) {
+		memmove(
+		    mat->contenu[i] + ind_sommet, mat->contenu[i] + ind_sommet + 1,
+     				   sizeof(int) * (mat->taille_m - ind_sommet - 1));
+	}
+	free(mat->contenu[ind_sommet]);
+	for (i = ind_sommet; i < mat->taille_n - 1; i++) {
+		mat->contenu[i] = mat->contenu[i+1];
+	}
+	mat->taille_m -= 1;
+	mat->taille_n -= 1;
 }
