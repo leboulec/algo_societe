@@ -27,4 +27,12 @@ int nbre_connexions(const int *connexion, size_t nbre_sommets);
  */
 void retire_sommet(matrice_adj_t *mat, size_t ind_sommet);
 
+
+/* Retire un sommet à une matrice et la redimensionne
+ * mat <-- matrice dont un sommet doit etre retire
+ * mat --> matrice avec un sommet retire
+ * ind_sommet <-- indice du sommet a retirer
+ */
+void détruit_sommet(matrice_adj_t *mat, size_t ind_sommet);
+
 #endif
