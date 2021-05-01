@@ -26,6 +26,13 @@ typedef matrice_t matrice_adj_t;
  */
 matrice_t *build_matrice(size_t m, size_t n);
 
+
+/* Cree une copie d'une matrice
+ * matrice_adj_t*	--> matrice à copier
+ * Retourne une copie de la matrice
+ */
+matrice_adj_t * copy_matrice(matrice_adj_t* matrice);
+
 /* Build a random matrice d'adjacence symetrique
  * int n	--> taille de la matrice carre
  * Retourne la matrice construite

@@ -1,4 +1,4 @@
-#include "algo.h"
+#include "../include/algo.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -6,7 +6,7 @@ size_t *algo_bon_sens(matrice_adj_t *mat)
 {
 	size_t *liste_sommet = (size_t *)calloc(mat->taille_m, sizeof(size_t));
 	if (liste_sommet == NULL) {
-		printf("Impossible de créer la liste des sommets... Problème de mémoire ?");
+		printf("Impossible de creer la liste des sommets... Problème de memoire ?");
 		return NULL;
 	}
 	size_t ind_liste = 0;
@@ -48,10 +48,11 @@ matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){
 			mats[i] = build_matrice(mat_in->taille_m, mat_in->taille_n);
 			for (int j = 0; j < mat_in->taille_m; j++)
 				memcpy(mats[i]->contenu[j], mat_in->contenu[j], sizeof(int) * (mat_in->taille_m));	
-			retire_sommet(mats[i],i);
+			detruit_sommet(mats[i],i);
 		}
 	return mats;
 }
+
 // Tableau de sommet 
 listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 {
@@ -64,46 +65,68 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 	if(mat_in->taille_m > 1){
 		
 		mats = getSubMatrix(mat_in);
+		
 		if(mats == NULL)
 			return NULL;
 		
 		solutions = malloc(sizeof(listeSommet*)*mat_in->taille_m);
+		
 		if(solutions == NULL)
 			return NULL;
 			
 		// Pour chaque sous matrice
-		for(size_t i = 0 ; i < mat_in->taille_n; i++){
-
-			nbConnexion = 0;
-			for(size_t j = 0 ; j < mats[i]->taille_m ; j++)
-				nbConnexion += (size_t) nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m);
-		
+		for(size_t i = 0 ; i < mat_in->taille_n; nbConnexion = 0,i++){
+			
 			list = createList(i);
 			
+			for(size_t j = 0 ; j < mats[i]->taille_m ; 
+				nbConnexion += (size_t) nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m),j++);
+				
 			if(nbConnexion){
-				tmpList = algo_force_brute(mats[i]);
-				delete_matrice(mats[i]);
+		
+				tmpList = algo_force_brute(mats[i]);	
+		
 				catList(list,tmpList);
+		
+				delete_matrice(mats[i]);
+		
 				solutions[i] = list;
+		
 			}else{
+
 				for(size_t k = 0 ; k < i ; k++)
 					deleteList(solutions[k]);
-				for(size_t k = 0 ; k < mat_in->taille_m ; k++)
-					delete_matrice(mats[k]);
+					
+				for(size_t j = i ; j < mat_in->taille_m ; j++)
+						delete_matrice(mats[j]);
+					
 				free(solutions);
+		
 				free(mats);
+		
 				return list;
 			}
 		}
-		list = solutions[0];
 
+		list = solutions[0];
+		
 		for(size_t i = 1 ; i < mat_in->taille_m ; i++){
-			if(solutions[i]->taille<list->taille 
-				&& (*solutions[i]->contenu) != -1)
-				list = solutions[i];		
-			deleteList(solutions[i]);
+			
+			if(solutions[i]->taille < list->taille 
+				&& (solutions[i]->contenu) != NULL){
+			
+					deleteList(list);
+			
+					list = solutions[i];
+			
+				}		
+			else		
+			
+				deleteList(solutions[i]);
 		}
+		
 		free(solutions);
+
 		free(mats);
 	}
 	return list;

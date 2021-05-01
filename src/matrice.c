@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "matrice.h"
+#include <string.h>
+#include "../include/matrice.h"
 
 matrice_t *build_matrice(size_t m, size_t n)
 {
@@ -36,6 +37,47 @@ matrice_t *build_matrice(size_t m, size_t n)
 	mat->taille_n = n;
 	mat->contenu = contenu;
 	return mat;
+}
+
+matrice_adj_t *copy_matrice(matrice_adj_t* matrice){
+	matrice_t *cpy;
+	int **contenu;
+	size_t i;
+	int *colonne;
+
+	cpy = (matrice_t *)malloc(sizeof(matrice_t)); 
+	
+	if (cpy == NULL)
+		return NULL;
+	
+	contenu = (int **)malloc(matrice->taille_m * sizeof(int *));
+	
+	if (contenu == NULL) {
+		free(cpy);
+		return NULL;
+	}
+
+	for (i = 0; i < matrice->taille_n; i++) {
+
+		colonne = (int *)malloc(matrice->taille_m*sizeof(int));
+
+		if (colonne == NULL) {
+			if (i != 0)
+				for (--i; i >= 0; i--) {
+					free(contenu[i]);
+				}
+			free(contenu);
+			free(cpy);
+			return NULL;
+		}
+		memcpy(colonne,matrice->contenu[i],matrice->taille_m*sizeof(int));
+		contenu[i] = colonne;
+	}
+
+	cpy->taille_m = matrice->taille_m;
+	cpy->taille_n = matrice->taille_n;
+	cpy->contenu = contenu;
+	return cpy;
 }
 
 matrice_adj_t *build_random_matrice_adj(size_t n)

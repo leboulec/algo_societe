@@ -8,6 +8,7 @@ typedef struct {
 	size_t taille;
 	int *contenu;
 } listeSommet;
+
 listeSommet* createList(int sommet);
 void appendList(listeSommet* l, int sommet);
 void deleteList(listeSommet* sommets);
