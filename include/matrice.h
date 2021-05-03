@@ -39,6 +39,20 @@ matrice_adj_t * copy_matrice(matrice_adj_t* matrice);
  */
 matrice_adj_t *build_random_matrice_adj(size_t n);
 
+/* crée un fichier binaire à partir d'une matrice
+ * matrice_t* la matrice à inscrire 
+ * char* f	--> le chemin du fichier
+ * Retourne le pointeur de fichier
+ */
+FILE* createFileFromMatrice(matrice_t* m,char* f);
+
+/* Récupère une matrice à partir d'un fichier .mat
+ * char* f	--> le chemin du fichier
+ * Retourne la matrice construite
+ */
+matrice_adj_t * getMatriceFrom(char* f);
+
+
 /*
  * Delete the matrice mat
  */

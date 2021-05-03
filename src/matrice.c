@@ -119,6 +119,48 @@ void print_matrice(matrice_t *mat)
 	}
 }
 
+
+
+FILE* createFileFromMatrice(matrice_t* mat,char* f){
+
+	FILE* fPtr = fopen(f,"wb");
+	
+	if(fPtr == NULL)
+		return NULL;
+	
+	fwrite(&mat->taille_m,sizeof(size_t),1,fPtr);
+	fwrite(&mat->taille_n,sizeof(size_t),1,fPtr);
+	
+	for(int i = 0 ; i < mat->taille_m ; i++)
+		for(int j = 0 ;j < mat->taille_n;
+			fwrite(&(mat->contenu[i][j]),sizeof(int),1,fPtr) ,j++);	
+	
+	fclose(fPtr);
+	return fPtr;
+}
+
+matrice_t * getMatriceFrom(char* f){
+
+	size_t taille_m = 0, taille_n = 0;
+	matrice_t* ret = NULL;
+	FILE* fPtr = fopen(f,"rb");
+	
+	if(fPtr == NULL)
+		return NULL;
+
+	fread(&taille_m,sizeof(size_t),1,fPtr);
+	fread(&taille_n,sizeof(size_t),1,fPtr);
+	
+	ret = build_matrice(taille_m,taille_n);
+
+	for(int i = 0 ; i < taille_m ; i++)
+		for(int j = 0 ; j < taille_n ; j++)
+			fread(&ret->contenu[i][j],sizeof(int),1,fPtr);
+
+	fclose(fPtr);
+	return ret;
+}
+
 /* Inutile
 matrice_inc_t *build_matrice_inc(int *liste_inc[2], size_t n_list, size_t n_vertex)
 {

@@ -2,12 +2,21 @@
 #include <string.h>
 #include "../include/algo.h"
 #include "../include/matrice.h"
+#include "../include/societe.h"
 
 int main()
 {
+
+	matrice_adj_t //*mat = build_matrice(3, 3),
+	*cpy = NULL;
+
+	cpy = matAdjacenceSociete("tst/societe.txt");
+	
+	print_matrice(cpy);
+	//print_matrice(cpy);
 	/* TEST 1*/
-	printf("===TEST 1===\n");
-	matrice_adj_t *mat = build_matrice(3, 3),*cpy = NULL;
+	/*printf("===TEST 1===\n");
+	
 	
 	if (mat == NULL)
 		return -1;
@@ -20,8 +29,7 @@ int main()
 	mat->contenu[1][0] = 0;
 
 	print_matrice(mat);
-	cpy = copy_matrice(mat);
-	
+
 	printf("*****************\n");
 
 	listeSommet *liste = algo_force_brute(mat);
@@ -36,11 +44,10 @@ int main()
 
 
 	delete_matrice(mat);
-	delete_matrice(cpy);
 	deleteList(liste);
-	
+	*/
 	/* TEST 2*/
-	
+	/*
 	printf("\n===TEST 2===\n");
 	mat = build_random_matrice_adj(10);
 	if (mat == NULL)
@@ -51,13 +58,19 @@ int main()
 		delete_matrice(mat);
 		return -1;
 	}
+
+
+	createFileFromMatrice(mat,"test.mat");
+
+	cpy = getMatriceFrom("test.mat");
+	print_matrice(cpy);
+
 	printf("*****************\n");
 	printf("Sommets à retirer : ");
-	
 	displayList(liste);
 	printf("\n");
 	delete_matrice(mat);
 	deleteList(liste);
-	
+*/	
 	return 0;
 }
