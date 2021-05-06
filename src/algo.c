@@ -1,4 +1,4 @@
-#include "../include/algo.h"
+#include  "algo.h"
 #include <stdlib.h>
 #include <string.h>
 

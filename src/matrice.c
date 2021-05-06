@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
-#include "../include/matrice.h"
+#include  "matrice.h"
 
 matrice_t *build_matrice(size_t m, size_t n)
 {

@@ -1,4 +1,4 @@
-#include "../include/societe.h"
+#include  "societe.h"
 
 #include <stdlib.h>
 #include <string.h>

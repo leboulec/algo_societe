@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
-#include "../include/algo.h"
-#include "../include/matrice.h"
-#include "../include/societe.h"
+#include  "algo.h"
+#include  "matrice.h"
+#include  "societe.h"
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 	/* TEST 1*/
 	printf("===TEST 1===\n");
 	
-	
+	/*
 	if (mat == NULL)
 		return -1;
 	for (int i = 0; i < 3; i++)
@@ -34,7 +34,7 @@ int main()
 	print_matrice(mat);
 
 	printf("*****************\n");
-
+	*/
 	listeSommet *liste = algo_force_brute(mat);
 	
 	if (liste == NULL) {

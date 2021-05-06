@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/listeSommet.h"
+#include  "listeSommet.h"
 
 listeSommet* createList(int sommet){
 	
