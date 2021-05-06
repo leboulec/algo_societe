@@ -7,15 +7,18 @@
 int main()
 {
 
-	matrice_adj_t //*mat = build_matrice(3, 3),
+	matrice_adj_t *mat = build_matrice(3, 3),
 	*cpy = NULL;
+	gpe_t* gpes ;
+	size_t nbGpe ;
 
-	cpy = matAdjacenceSociete("tst/societe.txt");
+	gpes = getGpeFrom("tst/societe1.txt",&nbGpe);
+	
+	cpy = getMatrixFrom(nbGpe,gpes );
 	
 	print_matrice(cpy);
-	//print_matrice(cpy);
 	/* TEST 1*/
-	/*printf("===TEST 1===\n");
+	printf("===TEST 1===\n");
 	
 	
 	if (mat == NULL)
@@ -45,7 +48,7 @@ int main()
 
 	delete_matrice(mat);
 	deleteList(liste);
-	*/
+	
 	/* TEST 2*/
 	/*
 	printf("\n===TEST 2===\n");
@@ -72,5 +75,8 @@ int main()
 	delete_matrice(mat);
 	deleteList(liste);
 */	
+
+	delete_matrice(cpy);
+
 	return 0;
 }
