@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-size_t *algo_bon_sens(matrice_adj_t *mat)
+listeSommet *algo_bon_sens(matrice_adj_t *mat)
 {
-	size_t *liste_sommet = (size_t *)calloc(mat->taille_m, sizeof(size_t));
+	size_t *liste_sommet = (int *)calloc(mat->taille_m, sizeof(size_t));
 	if (liste_sommet == NULL) {
 		printf("Impossible de creer la liste des sommets... Problème de memoire ?");
 		return NULL;
@@ -32,12 +32,14 @@ size_t *algo_bon_sens(matrice_adj_t *mat)
 		}
 	} while (connexion_max > 0);
 
-	liste_sommet[ind_liste] = -1;
-	size_t *liste_sommet_courte = realloc(liste_sommet, sizeof(size_t) * (ind_liste + 1));
+	size_t *liste_sommet_courte = realloc(liste_sommet, sizeof(size_t) * (ind_liste));
 	if (liste_sommet_courte == NULL)
-		return liste_sommet;
+		return NULL;
 	liste_sommet = liste_sommet_courte;
-	return liste_sommet;
+	listeSommet *liste = (listeSommet *)malloc(sizeof(listeSommet));
+	liste->contenu = liste_sommet;
+	liste->taille = ind_liste;
+	return liste;
 }
 
 matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){

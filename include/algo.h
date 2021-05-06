@@ -10,7 +10,7 @@
  * Renvoie une liste des noeuds a enlever pour obtenir une matrice totalement
  * deconnexe
  */
-size_t *algo_bon_sens(matrice_adj_t *mat_in);
+listeSommet *algo_bon_sens(matrice_adj_t *mat_in);
 
 /* Calcul le nombre de sommets connectes au sommet courant
  * connexion <-- colonne de la matrice d'adjacence

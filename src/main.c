@@ -50,18 +50,19 @@ int main()
 	deleteList(liste);
 	
 	/* TEST 2*/
-	/*
 	printf("\n===TEST 2===\n");
 	mat = build_random_matrice_adj(10);
 	if (mat == NULL)
 		return -1;
-	print_matrice(mat);
-	liste = algo_force_brute(mat);
+	print_matrice(cpy);
+	liste = algo_bon_sens(cpy);
 	if (liste == NULL) {
 		delete_matrice(mat);
 		return -1;
 	}
-
+	displayList(liste);
+	printf("\n");
+	/*
 
 	createFileFromMatrice(mat,"test.mat");
 
