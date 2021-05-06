@@ -15,6 +15,7 @@ $(EXECS): $(OBJ)
 	$(CC)  $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
+	if [ ! -d "obj" ]; then mkdir obj; fi
 	$(CC)   $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 $(BIN_DIR) $(OBJ_DIR):
