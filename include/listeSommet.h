@@ -6,11 +6,11 @@
  */
 typedef struct {
 	size_t taille;
-	int *contenu;
+	size_t *contenu;
 } listeSommet;
 
-listeSommet* createList(int sommet);
-void appendList(listeSommet* l, int sommet);
+listeSommet* createList(size_t sommet);
+void appendList(listeSommet* l, size_t sommet);
 void deleteList(listeSommet* sommets);
 void catList(listeSommet* l1,listeSommet* l2);
 void displayList(listeSommet* l);

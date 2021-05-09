@@ -4,7 +4,7 @@
 
 listeSommet *algo_bon_sens(matrice_adj_t *mat)
 {
-	size_t *liste_sommet = (int *)calloc(mat->taille_m, sizeof(size_t));
+	size_t *liste_sommet = (size_t *)calloc(mat->taille_m, sizeof(size_t));
 	if (liste_sommet == NULL) {
 		printf("Impossible de creer la liste des sommets... Problème de memoire ?");
 		return NULL;
