@@ -1,4 +1,4 @@
-#include  "algo.h"
+#include "algo.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -46,10 +46,10 @@ matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){
 	matrice_adj_t ** mats = (matrice_adj_t **) malloc(mat_in->taille_m*sizeof(matrice_adj_t)); 
 	if(mats == NULL)
 		return NULL;
-	for(size_t i = 0 ; i < mat_in->taille_m ; i++){		
+	for(size_t i = 0 ; i < mat_in->taille_m ; i++){
 			mats[i] = build_matrice(mat_in->taille_m, mat_in->taille_n);
 			for (int j = 0; j < mat_in->taille_m; j++)
-				memcpy(mats[i]->contenu[j], mat_in->contenu[j], sizeof(int) * (mat_in->taille_m));	
+				memcpy(mats[i]->contenu[j], mat_in->contenu[j], sizeof(int) * (mat_in->taille_m));
 			detruit_sommet(mats[i],i);
 		}
 	return mats;
@@ -59,74 +59,74 @@ matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){
 listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 {
 	listeSommet* list = NULL,*tmpList = NULL,** solutions = NULL;
-	
+
 	matrice_adj_t **mats = NULL;
 
 	size_t nbConnexion = 0;
 
 	if(mat_in->taille_m > 1){
-		
+
 		mats = getSubMatrix(mat_in);
-		
+
 		if(mats == NULL)
 			return NULL;
-		
+
 		solutions = malloc(sizeof(listeSommet*)*mat_in->taille_m);
-		
+
 		if(solutions == NULL)
 			return NULL;
-			
+
 		// Pour chaque sous matrice
 		for(size_t i = 0 ; i < mat_in->taille_n; nbConnexion = 0,i++){
-			
+
 			list = createList(i);
-			
+
 			for(size_t j = 0 ; j < mats[i]->taille_m ; 
 				nbConnexion += (size_t) nbre_connexions(mats[i]->contenu[j],mats[i]->taille_m),j++);
-				
+
 			if(nbConnexion){
-		
+
 				tmpList = algo_force_brute(mats[i]);	
-		
+
 				catList(list,tmpList);
-		
+
 				delete_matrice(mats[i]);
-		
+
 				solutions[i] = list;
-		
+
 			}else{
 
 				for(size_t k = 0 ; k < i ; k++)
 					deleteList(solutions[k]);
-					
+
 				for(size_t j = i ; j < mat_in->taille_m ; j++)
 						delete_matrice(mats[j]);
-					
+
 				free(solutions);
-		
+
 				free(mats);
-		
+
 				return list;
 			}
 		}
 
 		list = solutions[0];
-		
+
 		for(size_t i = 1 ; i < mat_in->taille_m ; i++){
-			
+
 			if(solutions[i]->taille < list->taille 
 				&& (solutions[i]->contenu) != NULL){
-			
+
 					deleteList(list);
 			
 					list = solutions[i];
-			
-				}		
-			else		
-			
+
+				}
+			else
+
 				deleteList(solutions[i]);
 		}
-		
+
 		free(solutions);
 
 		free(mats);
