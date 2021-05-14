@@ -1,3 +1,7 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
 #include  "algo.h"
 #include <stdlib.h>
 #include <string.h>
@@ -55,7 +59,6 @@ matrice_adj_t ** getSubMatrix(matrice_adj_t *mat_in){
 	return mats;
 }
 
-// Tableau de sommet 
 listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 {
 	listeSommet* list = NULL,*tmpList = NULL,** solutions = NULL;
@@ -64,7 +67,7 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 
 	size_t nbConnexion = 0;
 
-	if(mat_in->taille_m > 1){
+	if(mat_in->taille_m > 2){
 		
 		mats = getSubMatrix(mat_in);
 		
@@ -87,9 +90,12 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 			if(nbConnexion){
 		
 				tmpList = algo_force_brute(mats[i]);	
-		
+
+				// L'indice est relatif à la matrice considérée
+				// il faut donc l'incrémenter
+
 				catList(list,tmpList);
-		
+
 				delete_matrice(mats[i]);
 		
 				solutions[i] = list;
@@ -123,7 +129,6 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 			
 				}		
 			else		
-			
 				deleteList(solutions[i]);
 		}
 		
@@ -131,6 +136,7 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 
 		free(mats);
 	}
+
 	return list;
 }
 

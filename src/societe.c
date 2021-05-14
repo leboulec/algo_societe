@@ -1,5 +1,8 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
 #include  "societe.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>

@@ -1,83 +1,64 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
+
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdio.h>
 #include  "algo.h"
 #include  "matrice.h"
 #include  "societe.h"
-
-int main()
+#include  "test.h"
+int main(int argc,char** argv)
 {
 
-	matrice_adj_t *mat = build_matrice(3, 3),
-	*cpy = NULL;
-	gpe_t* gpes ;
+	matrice_adj_t *mat = NULL;
+	gpe_t* gpes = NULL;
 	size_t nbGpe ;
+	double t = 0;
+	
+	/* Recupère une matrice depuis un fichier formaté 
+	 * représentant les groupes de société et leurs
+	 * participations
+	 */
+	printf("===Fin du monopole===\n");
 
-	gpes = getGpeFrom("tst/societe1.txt",&nbGpe);
-	
-	cpy = getMatrixFrom(nbGpe,gpes );
-	
-	print_matrice(cpy);
-	/* TEST 1*/
-	printf("===TEST 1===\n");
-	
-	/*
-	if (mat == NULL)
-		return -1;
-	for (int i = 0; i < 3; i++)
-		for(int j = 0; j < 3; j++)
-			if (i != j)
-				mat->contenu[i][j] = 1;
-	
-	mat->contenu[0][1] = 0;
-	mat->contenu[1][0] = 0;
-
-	print_matrice(mat);
-
-	printf("*****************\n");
-	*/
-	listeSommet *liste = algo_force_brute(mat);
-	
-	if (liste == NULL) {
-		delete_matrice(mat);
-		return -1;
+	if(argc > 1 ){
+		//Création d'un matrice de taille argv[1]
+		if(isdigit((int)(*(argv[1])))){
+			sscanf(argv[1],"%ld",&nbGpe);
+			mat = build_random_matrice_adj(nbGpe);
+		}
+		/*Création d'une matrice depuis le 
+		 * fichier avec le nom passé en paramètre */
+		else{
+			gpes = getGpeFrom(argv[1],&nbGpe);
+			mat = getMatrixFrom(nbGpe,gpes);
+		}
+	}
+	// Comportement sans arguments
+	else{
+		gpes = getGpeFrom("tst/societe1.txt",&nbGpe);
+		mat = getMatrixFrom(nbGpe,gpes);
 	}
 
-	printf("Sommets à retirer : ");
-	displayList(liste);
-
-
-	delete_matrice(mat);
-	deleteList(liste);
-	
-	/* TEST 2*/
-	printf("\n===TEST 2===\n");
-	mat = build_random_matrice_adj(10);
 	if (mat == NULL)
 		return -1;
-	print_matrice(cpy);
-	liste = algo_bon_sens(cpy);
-	if (liste == NULL) {
-		delete_matrice(mat);
-		return -1;
-	}
-	displayList(liste);
-	printf("\n");
-	/*
 
-	createFileFromMatrice(mat,"test.mat");
+	t = tstAlgo(algo_bon_sens,mat);
+	
+	printf("\nTemps d'exécution algorithme bon sens : %fs\n", t);
 
-	cpy = getMatriceFrom("test.mat");
-	print_matrice(cpy);
+	t = tstAlgo(algo_force_brute,mat);
 
-	printf("*****************\n");
-	printf("Sommets à retirer : ");
-	displayList(liste);
-	printf("\n");
+	printf("\nTemps d'exécution algorithme force brute : %fs\n", t);
+		
 	delete_matrice(mat);
-	deleteList(liste);
-*/	
-
-	delete_matrice(cpy);
+	
+	if(gpes != NULL)
+		deleteGpes(gpes,nbGpe);
 
 	return 0;
 }

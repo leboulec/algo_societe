@@ -1,3 +1,7 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
 #ifndef __SOCIETE_H__
 #define __SOCIETE_H__
 
