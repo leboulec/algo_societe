@@ -72,14 +72,9 @@ void displayList(listeSommet* l){
 }
 
 void bruteListUpdate(listeSommet* l){
-
+	displayList(l);
 	if(l->taille > 1){
-			
-			if(l->contenu[1] >=  *l->contenu)
-					l->contenu[1] += 1;
-
 			for(size_t i = 1 ; i < l->taille ; i++ ){
-				if(l->contenu[i-1] >=  l->contenu[i])
 					l->contenu[i] += i;
 		}
 	}
