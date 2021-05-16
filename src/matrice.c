@@ -1,3 +1,8 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
