@@ -26,22 +26,39 @@ int main(int argc,char** argv)
 	printf("===Fin du monopole===\n");
 
 	if(argc > 1 ){
-		//Création d'un matrice de taille argv[1]
-		if(isdigit((int)(*(argv[1])))){
-			sscanf(argv[1],"%ld",&nbGpe);
-			mat = build_random_matrice_adj(nbGpe);
-		}
-		/*Création d'une matrice depuis le 
-		 * fichier avec le nom passé en paramètre */
-		else{
-			gpes = getGpeFrom(argv[1],&nbGpe);
-			mat = getMatrixFrom(nbGpe,gpes);
+		// -r : matrice random
+		if (strcmp(argv[1], "-r") == 0) {
+			if (argc > 2) {
+				size_t taille_matrice_test = atoll(argv[2]);
+				if (taille_matrice_test < 1) {
+					printf("Veuillez indiquer une taille valide\n");
+					return -1;
+				}
+				mat = build_random_matrice_adj(taille_matrice_test);
+			} else {
+				printf("Usage : monopole -r taille_matrice\n");
+				return -1;
+			}
+		} else {
+
+			//Création d'un matrice de taille argv[1]
+			if(isdigit((int)(*(argv[1])))){
+				sscanf(argv[1],"%ld",&nbGpe);
+				mat = build_random_matrice_adj(nbGpe);
+			}
+			/*Création d'une matrice depuis le 
+			 * fichier avec le nom passé en paramètre */
+			else{
+				gpes = getGpeFrom(argv[1],&nbGpe);
+				mat = getMatrixFrom(nbGpe,gpes);
+			}
 		}
 	}
 	// Comportement sans arguments
 	else{
-		gpes = getGpeFrom("tst/societe1.txt",&nbGpe);
-		mat = getMatrixFrom(nbGpe,gpes);
+		printf("Usage :\nmonopole fichier\tpour executer les algorithmes sur une matrice d'un fichier\nmonopole -r n\t\tpour executer les algorithmes sur une matrice aleatoire de taille n\n");
+		//gpes = getGpeFrom("tst/societe1.txt",&nbGpe);
+		//mat = getMatrixFrom(nbGpe,gpes);
 	}
 
 	if (mat == NULL)
