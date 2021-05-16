@@ -1,9 +1,13 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "listeSommet.h"
 
-listeSommet* createList(int sommet){
+listeSommet* createList(size_t sommet){
 
 	listeSommet* l = (listeSommet*) malloc(sizeof(listeSommet));
 
@@ -12,7 +16,7 @@ listeSommet* createList(int sommet){
 
 	l->taille = 1;
 
-	l->contenu = malloc(sizeof(int));
+	l->contenu = malloc(sizeof(size_t));
 
 	if(l->contenu == NULL )
 		return NULL;
@@ -23,12 +27,12 @@ listeSommet* createList(int sommet){
 
 }
 
-void appendList(listeSommet* l, int sommet){
+void appendList(listeSommet* l, size_t sommet){
 
 	l->taille++;
 
-	l = realloc(l->contenu,sizeof(int)*(l->taille));
-
+	l = realloc(l->contenu,sizeof(size_t)*(l->taille));
+	
 	l->contenu[l->taille-1]=sommet;
 
 }
@@ -46,10 +50,10 @@ void catList(listeSommet* l1,listeSommet* l2){
 
 	if(l2!=NULL && l1 != NULL){
 
-		l1->contenu = realloc(l1->contenu,sizeof(int)*(l1->taille+l2->taille));
+		l1->contenu = realloc(l1->contenu, sizeof(size_t) * (l1->taille+l2->taille));
 	
-		for(int i = 0 ; i < l2->taille;i++)
-			l1->contenu[i+l1->taille] =l2->contenu[i];
+		for(size_t i = 0 ; i < l2->taille; i++)
+			l1->contenu[i+l1->taille] = l2->contenu[i];
 	
 		l1->taille += l2->taille;
 
@@ -62,7 +66,16 @@ void displayList(listeSommet* l){
 
 	printf("\nListe de taille %ld\n",l->taille);
 
-	for(int i = 0 ; i < l->taille ; i++)
-		printf("%d ",l->contenu[i]);
+	for(size_t i = 0; i < l->taille; i++)
+		printf("%ld ", l->contenu[i]);
 
+}
+
+void bruteListUpdate(listeSommet* l){
+
+	if(l->taille > 1){
+			for(size_t i = 1 ; i < l->taille ; i++ ){
+					l->contenu[i] += i;
+		}
+	}
 }

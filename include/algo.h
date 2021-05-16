@@ -38,8 +38,10 @@ void detruit_sommet(matrice_adj_t *mat, size_t ind_sommet);
 
 /* Retire un sommet à une matrice et la redimensionne
  * mat <-- matrice dont un sommet doit etre retire
- * mat --> matrice avec un sommet retire
- * ind_sommet <-- indice du sommet a retirer
+ * Renvoie une liste des noeuds a enlever 
+ * pour obtenir une matrice totalement
+ * deconnexe
  */
 listeSommet* algo_force_brute(matrice_adj_t *mat_in);
+
 #endif

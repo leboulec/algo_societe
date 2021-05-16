@@ -1,3 +1,6 @@
+# LEBOULENGER - LEFEBVRE
+# Projet Algorithmie avancée
+# Sujet : Fin du monopole
 CC=gcc
 CFLAGS= -Wall -Werror -g
 
@@ -7,7 +10,7 @@ OBJ_DIR=obj
 CPPFLAGS=-Iinclude
 SRC= $(wildcard $(SRC_DIR)/*.c)
 OBJ= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-EXECS=bruteforce
+EXECS=monopole
 
 all: $(EXECS)
 
