@@ -27,5 +27,5 @@ $(BIN_DIR) $(OBJ_DIR):
 .PHONY: all clean
 
 clean: 
-	rm -rf *.o vgcore* $(EXECS)
+	rm -rf $(OBJ_DIR)/* vgcore* $(EXECS)
 
