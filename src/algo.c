@@ -89,7 +89,7 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 
 			if(nbConnexion){
 
-				tmpList = algo_force_brute(mats[i]);	
+				tmpList = algo_force_brute(mats[i]);
 
 				// L'indice est relatif à la matrice considérée
 				// il faut donc l'incrémenter
@@ -106,7 +106,7 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 					deleteList(solutions[k]);
 
 				for(size_t j = i ; j < mat_in->taille_m ; j++)
-						delete_matrice(mats[j]);
+					delete_matrice(mats[j]);
 
 				free(solutions);
 
@@ -123,11 +123,11 @@ listeSommet* algo_force_brute(matrice_adj_t *mat_in)
 			if(solutions[i]->taille < list->taille 
 				&& (solutions[i]->contenu) != NULL){
 
-					deleteList(list);
-			
-					list = solutions[i];
+				deleteList(list);
 
-				}
+				list = solutions[i];
+
+			}
 			else
 
 				deleteList(solutions[i]);
