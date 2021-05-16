@@ -1,9 +1,14 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
+
 #ifndef __ALGO_H__
 #define __ALGO_H__
 
 #include "matrice.h"
 #include "listeSommet.h"
-/* Construit une matrice totalement deconnexe a partir d'une matrice d'adjacence
+/* Algorithme trouvant une solution au problème du monopole
  * mat_in <-- Matrice d'adjacence representant les interdependances des groupes
  *            de societes. A la fin de l'algorithme, la matrice ne contient que
  *            des 0.
@@ -20,7 +25,7 @@ listeSommet *algo_bon_sens(matrice_adj_t *mat_in);
  */
 int nbre_connexions(const int *connexion, size_t nbre_sommets);
 
-/* Retire un sommet à une matrice
+/* Retire un sommet à une matrice (met a zero les connexions du sommet)
  * mat <-- matrice dont un sommet doit etre retire
  * mat --> matrice avec un sommet retire
  * ind_sommet <-- indice du sommet a retirer

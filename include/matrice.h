@@ -1,3 +1,8 @@
+/* LEBOULENGER - LEFEBVRE
+ * Projet Algorithmie avancée
+ * Sujet : Fin du monopole
+ */
+
 #ifndef __MATRICE_H__
 #define __MATRICE_H__
 
@@ -14,12 +19,10 @@ typedef struct {
 	int **contenu;
 } matrice_t;
 
-// Matrice d'incidence
-typedef matrice_t matrice_inc_t;
 // Matrice d'adjacence
 typedef matrice_t matrice_adj_t;
 
-/* Build a matrice
+/* Construit une matrice
  * int m	 <-- nombre de colonnes
  * int n	 <-- nombre de lignes
  * Retourne la matrice construite
@@ -33,7 +36,7 @@ matrice_t *build_matrice(size_t m, size_t n);
  */
 matrice_adj_t * copy_matrice(matrice_adj_t* matrice);
 
-/* Build a random matrice d'adjacence symetrique
+/* Construit une matrice d'adjacence symetrique aleatoire
  * int n	--> taille de la matrice carre
  * Retourne la matrice construite
  */
@@ -52,22 +55,14 @@ FILE* createFileFromMatrice(matrice_t* m,char* f);
  */
 matrice_adj_t * getMatriceFrom(char* f);
 
-
 /*
- * Delete the matrice mat
+ * Supprime la matrice mat
  */
 void delete_matrice(matrice_t *mat);
 
 /*
- * Print the matrice mat
+ * Affiche la matrice mat
  */
 void print_matrice(matrice_t *mat);
-
-/* Build a matrice d'incidence
- * int *list_inc[2]	<-- liste d'incidence
- * size_t n_list	<-- taille de la liste d'incidence
- * n_vertex		<-- nombre de sommets
-matrice_inc_t *build_matrice_inc(int *liste_inc[2], size_t n_list, size_t n_vertex);
- */
 
 #endif
