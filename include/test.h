@@ -9,7 +9,7 @@
 #include "matrice.h"
 
 typedef listeSommet* algo(matrice_adj_t* mat);
-double tstAlgo(algo* alg,matrice_adj_t *toTest);
+double tstAlgo(algo* alg,matrice_adj_t *toTest, int verbose);
 
 
 #endif
