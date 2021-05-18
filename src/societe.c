@@ -16,24 +16,28 @@ matrice_adj_t* build_ste_matrice(gpe_t* gpes,size_t nbGpe){
 
 	matrice_adj_t* mat = build_matrice(nbGpe,nbGpe);
 
-
-
 	return mat;
 }
+
 void deleteGpe(gpe_t *toFree){
 
 	for(int i = 0 ; i < toFree->nbSte; i++)
 		free(toFree->ste[i]);
 
 	free(toFree->ste);
+	
 	free(toFree->nom);
+	
 }
 void deleteGpes(gpe_t *gpes,size_t nbGpe){
+	
 	for(int i = 0 ; i < nbGpe  ; i++)
 		deleteGpe(gpes+i);
 
 	free(gpes);
+	
 }
+
  matrice_adj_t* getMatrixFrom(size_t nbGpe,gpe_t* gpes){
 	
 	gpe_t curGpe ;
@@ -43,15 +47,22 @@ void deleteGpes(gpe_t *gpes,size_t nbGpe){
 	for(size_t gpe = 0 ; gpe < nbGpe ;gpe++){
 
 		curGpe = gpes[gpe];
+		
 		for(size_t soc = 0 ; soc < curGpe.nbSte ;soc++){
+			
 			curSte = curGpe.ste[soc];
+			
 			for(size_t gpeCmp= 0 ; gpeCmp < nbGpe ; gpeCmp ++){
 				
 				if(gpe!=gpeCmp ){
+					
 					for(size_t steCmp = 0 ; steCmp < gpes[gpeCmp].nbSte ; steCmp ++){
+						
 						if(strcmp(curSte,gpes[gpeCmp].ste[steCmp] )==0 ){
+							
 							mat->contenu[gpe][gpeCmp] = 1;
 							mat->contenu[gpeCmp][gpe] =1;
+							
 						}
 					}
 				}
@@ -81,6 +92,7 @@ gpe_t* getGpeFrom(char* f,size_t* nbGpe){
 		printf("\nLe fichier n'a pas pu être ouvert");
 		return NULL;
 	}
+	
 	fread(bfr,BFR_SZ*sizeof(char),1,fPtr);
 
 
@@ -89,7 +101,6 @@ gpe_t* getGpeFrom(char* f,size_t* nbGpe){
 		while (
 			(tok = strtok_r(saveBfr, GPE_DELIM, &saveBfr))
 			&& (len = strlen(tok) ) 
-			//&& isalnum(*tok)
 			){
 
 			bzero(steBfr,BFR_SZ-1);
